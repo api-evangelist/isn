@@ -1,0 +1,47 @@
+generated: '2026-08-23'
+method: derived
+status: candidate
+source: >-
+  Derived from the ISNetworld API endpoints confirmed live in
+  conventions/isn-conventions.yml. ISN ships no MCP server; searches and probes on
+  2026-08-23 found none.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  note: >-
+    ISN publishes no remote MCP endpoint and no local stdio package. POST tools/list
+    returns 404 at https://api.isnetworld.com/mcp, and mcp.isnetworld.com does not
+    resolve in DNS. No @isn or @isnetworld package exists on npm. The `auth` value
+    records what an MCP server would have to carry if one were built — the UserKey and
+    CompanyKey pair — not an authentication method ISN exposes to agents today.
+server: null
+tools:
+- name: get_access_token
+  description: Exchange a UserKey and CompanyKey for a bearer token.
+  source_operation: GET https://api.isnetworld.com/token
+  status: candidate
+- name: validate_access_token
+  description: Check whether the current bearer token is still valid.
+  source_operation: GET https://api.isnetworld.com/validate-token
+  status: candidate
+- name: list_connected_contractors
+  description: List the contractors connected to the calling hiring-client account.
+  source_operation: GET https://api.isnetworld.com/1.0/VendorConnections/ConnectedContractors
+  status: candidate
+- name: get_company_scorecard
+  description: Retrieve a company's ISNetworld compliance scorecard by ISN ID.
+  source_operation: GET https://api.isnetworld.com/1.0/CompanyProfile/Scorecard/{isnId}
+  status: candidate
+input_schemas: unavailable
+input_schemas_note: >-
+  ISN publishes no OpenAPI description, so no tool above carries a real inputSchema.
+  The parameter shapes could only be established by an authenticated integrator with
+  the Developer Integration Guide in hand. Nothing is guessed here.
+pointer_note: >-
+  NO MCPServer pointer is emitted in apis.yml. This file is a derived candidate, and an
+  MCPServer pointer would assert that ISN operates an agent surface it does not
+  operate.

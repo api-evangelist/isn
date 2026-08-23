@@ -1,0 +1,118 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  ISN Trust Center at https://www.isnetworld.com/en/trust-center (HTTP 200,
+  2026-08-23) for the certification claims; live probes of api.isnetworld.com for the
+  protocol-level assertions.
+standards:
+- id: rfc9457-problem-details
+  conforms: true
+  evidence: >-
+    GET https://api.isnetworld.com/token returns Content-Type
+    application/problem+json with a body carrying type, title, status and traceId.
+    Observed on the wire 2026-08-23.
+  caveat: >-
+    Applied inconsistently — /validate-token returns a bare JSON boolean and /1.0/
+    resource paths return an empty 401 body.
+- id: w3c-trace-context
+  conforms: true
+  evidence: >-
+    The traceId member of the problem body is a traceparent string in the
+    00-<trace-id>-<span-id>-<flags> form.
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: >-
+    GET https://api.isnetworld.com/ returns WWW-Authenticate: Bearer; ISN documents
+    passing the token via the Authorization header.
+- id: tls-1.2-minimum
+  conforms: true
+  evidence: >-
+    ISN requires TLS 1.2 or later; the host negotiates TLSv1.2 and sets
+    Strict-Transport-Security: max-age=31536000; includeSubDomains.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    Authentication is a proprietary static-key exchange (UserKey + CompanyKey headers
+    at GET /token), not an OAuth 2.0 grant. No authorization endpoint, no scopes, no
+    /.well-known/oauth-authorization-server (probed 404).
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every ISN host.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger description is published. /openapi.json, /openapi.yaml,
+    /swagger.json, /swagger/v1/swagger.json, /api-docs, /docs and /redoc all return 404
+    on api.isnetworld.com.
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface is published.
+- id: graphql
+  conforms: false
+  evidence: POST /graphql returns 404 on api.isnetworld.com.
+- id: mcp
+  conforms: false
+  evidence: >-
+    POST tools/list returns 404 on api.isnetworld.com/mcp; mcp.isnetworld.com does not
+    resolve.
+- id: a2a
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json return 404 on
+    api.isnetworld.com, www.isnetworld.com and www.isn.com.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on every ISN host.
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: >-
+    No 2xx response is obtainable without credentials, so the presence of a Sunset or
+    Deprecation header cannot be measured.
+certifications:
+  source: https://www.isnetworld.com/en/trust-center
+  published: true
+  items:
+  - name: ISO/IEC 27001:2022
+    scope: Information security management system
+  - name: ISO 9001:2015
+    scope: Quality management system
+  - name: SOC 2
+    scope: Service organization controls; published as "SSAE-16 SOC2"
+  - name: NIST Cybersecurity Framework
+    scope: Referenced as implemented
+  - name: ICSS 2020:2025 Gold Certification
+    scope: International Customer Service Standard
+  regulatory:
+  - name: GDPR
+    scope: EU General Data Protection Regulation
+  - name: CCPA
+    scope: California Consumer Privacy Act; see /en/california-service-provider-commitments
+  - name: EU-US Data Privacy Framework
+    scope: See /en/dpf-policy
+  - name: Australian Privacy Principles
+    scope: See /en/australian-privacy-principles-policy
+  - name: New Zealand Privacy Act
+    scope: See /en/new-zealand-privacy-policy
+  - name: Modern Slavery Act statement
+    scope: See /en/modern-slavery-statement
+  gated_documents:
+  - Third Party Penetration Testing Letter of Attestation
+  - Responsible AI Guidelines
+  - ISNetworld Subprocessors List
+  - Accessibility Commitment
+  gated_note: >-
+    The four documents above are locked behind a request form at
+    /en/trust-center/request-access. The ISO certificates, security and privacy
+    policies and the Data Privacy Framework policy are publicly downloadable.
+domain_standard:
+  assessed: true
+  conforms: false
+  note: >-
+    Contractor and supplier prequalification has no dominant machine-readable
+    interchange standard of the kind SCIM, OData, OpenRTB, HL7 or OneRoster provide in
+    their markets, and ISN's contract declares none. The nearest adjacent schemes —
+    OSHA incident recordkeeping classifications and ISO 45001 occupational health and
+    safety management — govern the data ISN collects rather than the wire format it
+    exposes, and neither appears as a schema, URN or content type on the API. Recorded
+    as assessed-and-absent rather than left blank; this is reward-only scoring and no
+    conformance is invented to fill the slot.

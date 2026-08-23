@@ -64,5 +64,20 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ISN is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
+ISN Software Corporation, which trades as ISN, is a Dallas, Texas contractor and supplier
+information management company founded in 2001. Its subscription platform ISNetworld collects,
+verifies and continuously monitors health and safety, quality, insurance, training, cybersecurity
+and sustainability data on contractors and suppliers, and connects that record to the hiring
+clients who engage them across energy, chemicals, manufacturing, mining, utilities, construction
+and telecom. ISN operates in more than 85 countries and also ships ISN Empower, a worker-facing
+mobile app and learning management tool.
+
+ISN runs a production REST API at `https://api.isnetworld.com` that lets subscribers download
+their own ISNetworld data into internal systems. The API is real and live, but it is documented
+only to customers: there is no public developer portal, no OpenAPI description, no SDK, and the
+API's own help surface is authentication-gated. The word "API" does not appear anywhere on the
+public isnetworld.com site.
+
+- https://www.isnetworld.com/en
+- https://www.isnetworld.com/en/trust-center
 - https://forgeglobal.com/isn_stock/

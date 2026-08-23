@@ -1,0 +1,121 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  Live unauthenticated probes of https://api.isnetworld.com on 2026-08-23, plus the
+  endpoint list and authentication flow ISN publishes in its "ISNetworld API -
+  Developer Integration Guide".
+api: ISNetworld API
+base_url: https://api.isnetworld.com
+platform: Microsoft-IIS/10.0 / ASP.NET (from Server and X-Powered-By response headers)
+authentication:
+  style: bearer token exchanged from a UserKey + CompanyKey header pair
+  detail: authentication/isn-authentication.yml
+versioning:
+  scheme: uri-path
+  current: '1.0'
+  observed: >-
+    Resource paths are prefixed with /1.0/. A /v1.0/ prefix appears in an older
+    edition of ISN's Developer Integration Guide but returns HTTP 404 today, while the
+    same resource under /1.0/ returns HTTP 401 — evidence that the version prefix
+    changed and that the older documented form no longer routes.
+  policy_published: false
+error_envelope:
+  format: rfc9457
+  media_type: application/problem+json
+  consistent: false
+  detail: errors/isn-problem-types.yml
+request_id_tracing:
+  supported: true
+  field: traceId
+  location: RFC 9457 problem body
+  format: W3C Trace Context traceparent
+  note: >-
+    Also exposed as the request-context response header
+    (appId=cid-v1:3d653f82-b631-41bd-a33a-40534c5d580d), an Azure Application Insights
+    correlation header rather than a documented API convention.
+pagination:
+  documented: false
+  note: >-
+    No pagination scheme is published. A page query parameter is accepted without a
+    routing error on /1.0/VendorConnections/ConnectedContractors (HTTP 401 rather than
+    404), but that only proves the route matches — the parameter's semantics cannot be
+    confirmed without credentials, so nothing is asserted here.
+rate_limit_signaling:
+  headers: []
+  documented: false
+  detail: rate-limits/isn-rate-limits.yml
+idempotency:
+  supported: na
+  reason: >-
+    ISN describes the API as a way for customers to download their data for
+    integration with internal systems, and every endpoint confirmed on the live host
+    is a GET. No write surface is published, so an idempotency key has nothing to
+    protect. NO Idempotency pointer is emitted in apis.yml.
+dry_run_mode:
+  supported: na
+  reason: No public write surface to rehearse.
+reversibility:
+  grade: na
+  reason: >-
+    No write, create, update, delete or transactional operation is published on the
+    ISNetworld API. Every endpoint ISN documents and every route confirmed live is a
+    read: GET /token, GET /validate-token, GET /1.0/VendorConnections/ConnectedContractors
+    and GET /1.0/CompanyProfile/Scorecard/{isnId}. With no action an agent can take,
+    there is no action to take back, so reversibility is not applicable rather than
+    absent. Recorded as `na` so it leaves the scoring denominator instead of counting
+    as a zero.
+  write_surfaces: []
+  reversal_operations: []
+  note: >-
+    This assessment covers the public API only. Data that flows INTO ISNetworld —
+    contractor questionnaires, insurance certificates, training records — is submitted
+    through the authenticated ISNetworld web application and the Empower mobile app,
+    not through any endpoint ISN documents to API clients.
+field_expansion:
+  documented: false
+sparse_fields:
+  documented: false
+metadata_fields:
+  documented: false
+media_types:
+  request: application/json
+  response: [application/json, application/problem+json]
+transport:
+  tls_minimum: '1.2'
+  hsts: 'max-age=31536000; includeSubDomains'
+endpoints_confirmed:
+- method: GET
+  path: /token
+  status_unauthenticated: 401
+  purpose: Exchange UserKey + CompanyKey for a bearer token.
+- method: GET
+  path: /validate-token
+  status_unauthenticated: 401
+  purpose: Report whether the presented bearer token is still valid.
+- method: GET
+  path: /help
+  status_unauthenticated: 401
+  purpose: >-
+    The API's own help/reference surface. Authentication-gated, which is why no public
+    API reference exists to harvest.
+- method: GET
+  path: /1.0/VendorConnections/ConnectedContractors
+  status_unauthenticated: 401
+  purpose: List the contractors connected to the calling hiring-client account.
+- method: GET
+  path: /1.0/CompanyProfile/Scorecard/{isnId}
+  status_unauthenticated: 401
+  purpose: >-
+    Retrieve a company's ISNetworld scorecard by ISN ID (the guide's worked example
+    uses the identifier form 400-123456).
+endpoints_confirmed_method: >-
+  Each path above returned HTTP 401 on an unauthenticated GET while a control path on
+  the same host returned HTTP 404, which distinguishes a real gated route from a
+  catch-all. No endpoint is listed here that was not either published by ISN or
+  confirmed by that 401-vs-404 differential.
+cross_links:
+  authentication: authentication/isn-authentication.yml
+  errors: errors/isn-problem-types.yml
+  lifecycle: lifecycle/isn-lifecycle.yml
+  rate_limits: rate-limits/isn-rate-limits.yml
+  conformance: conformance/isn-conformance.yml

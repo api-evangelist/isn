@@ -1,0 +1,71 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  Live unauthenticated requests to https://api.isnetworld.com on 2026-08-23. ISN
+  publishes no public error reference, so every entry below is an error envelope this
+  pipeline actually observed on the wire — none are inferred from a spec or a doc.
+format: rfc9457
+envelope:
+  media_type: application/problem+json
+  fields: [type, title, status, traceId]
+  note: >-
+    The API returns RFC 9457 Problem Details for HTTP APIs. The `type` member
+    dereferences to the matching RFC 9110 status-code section rather than to a
+    provider-owned error registry, so the envelope is structurally conformant but
+    carries no ISN-specific problem taxonomy. `traceId` is a W3C Trace Context
+    traceparent string, which gives a caller a correlation identifier to quote to ISN
+    support.
+  example_observed: |
+    {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.2",
+     "title":"Unauthorized",
+     "status":401,
+     "traceId":"00-c91626603be8c2d5fae51a3fd24ddb9d-af81114a0df52eb0-00"}
+problems:
+- status: 401
+  type: https://tools.ietf.org/html/rfc9110#section-15.5.2
+  title: Unauthorized
+  media_type: application/problem+json
+  observed_on: GET https://api.isnetworld.com/token
+  remediation: >-
+    Send Content-Type: application/json together with valid UserKey and CompanyKey
+    headers to obtain a bearer token, or present a non-expired Authorization: Bearer
+    token on a resource call.
+- status: 401
+  type: null
+  title: Unauthorized
+  media_type: application/json
+  observed_on: GET https://api.isnetworld.com/validate-token
+  body_observed: 'false'
+  remediation: >-
+    The token-validation endpoint returns a bare JSON boolean rather than a Problem
+    Details document. A caller must branch on the body, not only on the envelope.
+  deviation: >-
+    Inconsistent with the RFC 9457 envelope used elsewhere on the same host.
+- status: 401
+  type: null
+  title: Unauthorized
+  media_type: null
+  observed_on: GET https://api.isnetworld.com/1.0/VendorConnections/ConnectedContractors
+  body_observed: '(empty)'
+  remediation: Present a valid bearer token.
+  deviation: >-
+    Resource paths answer 401 with an empty body and no Content-Type, so an agent
+    receives no machine-readable reason for the rejection on the calls that matter
+    most.
+- status: 404
+  type: null
+  title: Not Found
+  media_type: null
+  observed_on: >-
+    Any unrouted path, e.g. GET https://api.isnetworld.com/nonexistent-route-zzz
+  body_observed: '(empty)'
+  note: >-
+    The 404 is a genuine routing negative, not a catch-all: documented paths return
+    401 while undocumented siblings return 404. This is what allowed the endpoint
+    inventory in conventions/isn-conventions.yml to be verified rather than guessed.
+gaps:
+- >-
+  No published error-code registry, no provider-owned `type` URIs, and no documented
+  4xx/5xx catalogue. Only the authentication-layer envelope is observable without
+  credentials; the error semantics of authorized calls cannot be measured from
+  outside.

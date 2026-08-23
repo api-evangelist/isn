@@ -1,0 +1,27 @@
+generated: '2026-08-23'
+method: probed
+source: >-
+  Live unauthenticated requests to https://api.isnetworld.com/token on 2026-08-23 and
+  a full read of ISN's public site; no rate-limit documentation exists to search.
+limit_count: 0
+limits: []
+headers_observed: []
+headers_documented: []
+exhaustion_status: null
+retry_after: false
+note: >-
+  ISN publishes no rate limits for the ISNetworld API and returns no rate-limit
+  signalling headers on the responses observable without credentials. Repeated
+  unauthenticated requests to /token returned no X-RateLimit-*, no RateLimit-*, and no
+  Retry-After header, and no 429 was elicited. The response header set is limited to
+  date, server, request-context, strict-transport-security and x-powered-by. An
+  authenticated client therefore has no runtime backpressure signal to read and no
+  published number to design against; whether limits exist at all cannot be determined
+  from outside the subscriber boundary. Recorded as an honest zero, not an absence of
+  checking.
+probes:
+- url: https://api.isnetworld.com/token
+  method: GET
+  status: 401
+  rate_limit_headers: none
+  repeated: 3

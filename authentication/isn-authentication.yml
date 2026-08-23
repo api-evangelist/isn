@@ -1,0 +1,68 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  ISN's own "ISNetworld API - Developer Integration Guide" (the customer-issued PDF,
+  whose endpoint list and authentication flow are quoted publicly), corroborated by
+  live unauthenticated probes of https://api.isnetworld.com on 2026-08-23.
+api: ISNetworld API
+base_url: https://api.isnetworld.com
+transport_requirement: >-
+  Clients must send requests using TLS 1.2 or later over HTTPS. Confirmed live: the
+  host negotiates TLSv1.2 and returns Strict-Transport-Security: max-age=31536000;
+  includeSubDomains.
+model: bearer-token-issued-from-static-key-pair
+schemes:
+- name: ISNCompanyUserKeys
+  type: apiKey
+  in: header
+  credentials:
+  - name: UserKey
+    description: An API key unique to an individual ISNetworld user or application.
+  - name: CompanyKey
+    description: An API key unique to the subscribing company account.
+  used_for: >-
+    Exchanged at the token endpoint only. Both headers are sent together with
+    Content-Type: application/json to obtain a bearer token.
+- name: ISNBearer
+  type: http
+  scheme: bearer
+  used_for: >-
+    Every resource call after the token exchange. The token is passed using the
+    standard Authorization: Bearer <token> header.
+flow:
+- step: 1
+  operation: GET https://api.isnetworld.com/token
+  headers: [Content-Type, UserKey, CompanyKey]
+  returns: a bearer token
+  probed_status: 401
+  probed_content_type: application/problem+json
+- step: 2
+  operation: GET https://api.isnetworld.com/validate-token
+  headers: [Authorization]
+  returns: boolean validity of the presented bearer token
+  probed_status: 401
+  probed_note: >-
+    Answers with an application/json body of `false` when no valid bearer token is
+    presented.
+- step: 3
+  operation: any /1.0/ resource path
+  headers: [Authorization]
+  probed_status: 401
+token:
+  expires: true
+  renewal: >-
+    ISN documents that tokens expire and are renewed by repeating the /token exchange
+    with the UserKey and CompanyKey pair. ISN publishes no token lifetime value, so
+    none is recorded here.
+  lifetime_seconds: null
+oauth2: false
+openid_connect: false
+mutual_tls: false
+credential_provisioning: >-
+  UserKey and CompanyKey are issued to subscribers by ISN; there is no public
+  self-service key generation, no developer signup, and no public key-management page.
+docs: null
+docs_note: >-
+  ISN publishes no public authentication reference. The API's own help surface at
+  https://api.isnetworld.com/help is itself authentication-gated (HTTP 401 probed
+  2026-08-23), and the Developer Integration Guide is distributed to subscribers.

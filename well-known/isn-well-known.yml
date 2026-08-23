@@ -1,0 +1,60 @@
+generated: '2026-08-23'
+method: probed
+source: live GET probes of the /.well-known/ surface on every ISN host, 2026-08-23
+hit_count: 0
+note: >-
+  No /.well-known/ discovery document is served on any ISN host. The marketing hosts
+  www.isnetworld.com and www.isn.com answer every /.well-known/* path with an HTTP 404
+  carrying a 1,245-byte HTML error page, and the production API host
+  api.isnetworld.com answers every path with a bare HTTP 404 and no body. Nothing was
+  saved and NO WellKnown or SecurityTxt pointer is emitted in apis.yml — this file
+  records a measured absence, not a served surface.
+hosts:
+- host: https://api.isnetworld.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.isnetworld.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.isn.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404

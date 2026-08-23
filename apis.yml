@@ -1,23 +1,125 @@
 aid: isn
 name: ISN
-description: 'ISN is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'ISN Software Corporation, which trades as ISN, is a Dallas, Texas based
+  contractor and supplier information management company founded in 2001. Its subscription
+  platform ISNetworld collects, verifies and continuously monitors health and safety,
+  quality, insurance, training, cybersecurity and sustainability data on contractors
+  and suppliers, then connects that record to the hiring clients who engage them across
+  energy, chemicals, manufacturing, mining, utilities, construction, food and beverage,
+  and telecom. ISN operates in more than 85 countries from offices in Dallas, Midland,
+  Calgary, Montreal, Toronto, Mexico City, London, Perth, Sydney, Auckland, Dubai and
+  Paris, and also ships ISN Empower, a worker-facing mobile app and learning management
+  tool. The company is employee owned; Blackstone took a significant minority stake in
+  December 2020 at a valuation above USD 2 billion. ISN runs a production REST API at
+  api.isnetworld.com that lets subscribers pull their own ISNetworld data into internal
+  systems, but the API is documented only to customers and there is no public developer
+  portal, OpenAPI description, or SDK.'
+image: https://www.isnetworld.com/themes/custom/isn/touch-icon-512.png
 url: https://raw.githubusercontent.com/api-evangelist/isn/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-23'
 modified: '2026-08-23'
 tags:
 - Company
-apis: []
+- Contractor Management
+- Supplier Management
+- Health Safety and Environment
+- Risk Management
+- Compliance
+- Supply Chain
+- Sustainability
+- Workforce
+- Insurance
+- Training
+- Enterprise Software
+apis:
+- aid: isn:isnetworld-api
+  name: ISNetworld API
+  description: 'The ISNetworld API is a RESTful, bearer-token authenticated HTTP API
+    that lets ISN subscribers download their own ISNetworld data — company profile
+    scorecards, connected contractor lists and related compliance records — for
+    integration with internal systems. A client exchanges a UserKey and CompanyKey
+    header pair at GET /token for a bearer token, validates it at GET /validate-token,
+    and calls versioned resource paths under /1.0/. Requests must use TLS 1.2 or later.
+    ISN publishes no OpenAPI description and no public reference; the Developer
+    Integration Guide is issued to subscribers and the API''s own help surface at
+    /help is authentication-gated.'
+  humanURL: https://www.isnetworld.com/en/contact
+  baseURL: https://api.isnetworld.com
+  tags:
+  - Contractor Management
+  - Compliance
+  - Supply Chain
+  properties:
+  - type: Authentication
+    url: authentication/isn-authentication.yml
+  - type: ErrorCatalog
+    url: errors/isn-problem-types.yml
+  - type: Conventions
+    url: conventions/isn-conventions.yml
+  - type: RateLimits
+    url: rate-limits/isn-rate-limits.yml
+  - type: Lifecycle
+    url: lifecycle/isn-lifecycle.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/isn-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/isn_stock/
+  url: https://www.isnetworld.com/en
+- type: HelpCenter
+  url: https://www.isnetworld.com/en/faqs
+- type: Support
+  url: https://www.isnetworld.com/en/contact
+- type: Blog
+  url: https://www.isnetworld.com/en/blog
+- type: SignUp
+  url: https://www.isnetworld.com/en/signup
+- type: Login
+  url: https://www.isnetworld.com/en/login
+- type: TermsOfService
+  url: https://www.isnetworld.com/en/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.isnetworld.com/en/privacy
+- type: TrustCenter
+  url: https://www.isnetworld.com/en/trust-center
+- type: Compliance
+  url: https://www.isnetworld.com/en/trust-center
+- type: Conformance
+  url: conformance/isn-conformance.yml
+- type: Plans
+  url: plans/isn-plans-pricing.yml
+- type: LLMsTxt
+  url: llms/isn-llms.txt
+x-enrichment:
+  date: '2026-08-23'
+  status: minimal
+  artifacts_added: 12
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: customer-only-docs
+  detail: >-
+    ISN runs a live production REST API at api.isnetworld.com — GET /token,
+    /validate-token, /1.0/VendorConnections/ConnectedContractors and
+    /1.0/CompanyProfile/Scorecard/{isnId} all answer HTTP 401 against a 404 control —
+    but its only reference surface is the API's own /help endpoint, which is itself
+    authentication-gated, plus a Developer Integration Guide PDF issued to subscribers;
+    the word "API" does not appear anywhere on the public isnetworld.com site or in its
+    916-URL sitemap.
+  evidence:
+  - url: https://api.isnetworld.com/help
+    status: 401
+  - url: https://api.isnetworld.com/token
+    status: 401
+  - url: https://api.isnetworld.com/openapi.json
+    status: 404
+  - url: https://www.isnetworld.com/en/faqs
+    status: 200
+  checked: '2026-08-23'

@@ -1,0 +1,29 @@
+generated: '2026-08-23'
+method: searched
+source: >-
+  Registry searches on 2026-08-23 across npm, PyPI and GitHub, plus a full read of
+  ISN's public site.
+package_count: 0
+packages: []
+official_sdk_count: 0
+registries_checked:
+- registry: npm
+  query: ['isnetworld', 'isn-software', 'isnapi']
+  result: no first-party package
+- registry: pypi
+  query: ['isnetworld', 'isn-api']
+  result: 404 on both
+- registry: github
+  query: ['isnetworld', 'isn-software', 'isnsoftware', 'ISNetworld']
+  result: >-
+    No ISN organization. github.com/ISN-Software exists but publishes zero public
+    repositories and could not be attributed to ISN Software Corporation, so it is not
+    recorded as theirs.
+note: >-
+  ISN ships no first-party client library in any language and operates no public source
+  repository. The Developer Integration Guide points integrators at Fiddler and Postman
+  to hand-build calls rather than at an SDK. NO SDKs or Packages pointer is emitted in
+  apis.yml; this file records a measured zero. ISN does publish end-user mobile
+  applications (the ISNetworld and Empower apps on Google Play and the App Store), but
+  those are consumer clients of the platform, not developer packages, and are excluded
+  deliberately.
