@@ -14,6 +14,17 @@ description: 'ISN Software Corporation, which trades as ISN, is a Dallas, Texas 
   api.isnetworld.com that lets subscribers pull their own ISNetworld data into internal
   systems, but the API is documented only to customers and there is no public developer
   portal, OpenAPI description, or SDK.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.isnetworld.com/themes/custom/isn/touch-icon-512.png
 url: https://raw.githubusercontent.com/api-evangelist/isn/refs/heads/main/apis.yml
 x-type: company
