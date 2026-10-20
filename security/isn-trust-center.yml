@@ -10,7 +10,7 @@ certifications:
 - SOC 2 (published as "SSAE-16 SOC2")
 - ICSS 2020:2025 Gold Certification
 frameworks:
-- NIST Cybersecurity Framework
+- name: NIST Cybersecurity Framework
 privacy_regimes:
 - GDPR
 - CCPA
@@ -32,11 +32,12 @@ gated_documents:
 - name: Accessibility Commitment
   access: request form
 request_access_url: https://www.isnetworld.com/en/trust-center/request-access
-contact:
-  channel: ISN Customer Service (phone, live chat, or the request form)
-  url: https://www.isnetworld.com/en/contact
-  security_email: null
+contact: https://www.isnetworld.com/en/contact
 gaps:
 - No named security or vulnerability-disclosure contact address.
 - No subprocessor list without submitting a request form.
 - No status page or uptime disclosure.
+contact_detail:
+  channel: ISN Customer Service (phone, live chat, or the request form)
+  url: https://www.isnetworld.com/en/contact
+  security_email: null
