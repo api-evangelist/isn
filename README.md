@@ -64,20 +64,112 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-ISN Software Corporation, which trades as ISN, is a Dallas, Texas contractor and supplier
-information management company founded in 2001. Its subscription platform ISNetworld collects,
-verifies and continuously monitors health and safety, quality, insurance, training, cybersecurity
-and sustainability data on contractors and suppliers, and connects that record to the hiring
-clients who engage them across energy, chemicals, manufacturing, mining, utilities, construction
-and telecom. ISN operates in more than 85 countries and also ships ISN Empower, a worker-facing
-mobile app and learning management tool.
+ISN Software Corporation, which trades as ISN, is a Dallas, Texas based contractor and supplier information management company founded in 2001. Its subscription platform ISNetworld collects, verifies and continuously monitors health and safety, quality, insurance, training, cybersecurity and sustainability data on contractors and suppliers, then connects that record to the hiring clients who engage them across energy, chemicals, manufacturing, mining, utilities, construction, food and beverage, and telecom. ISN operates in more than 85 countries from offices in Dallas, Midland, Calgary, Montreal, Toronto, Mexico City, London, Perth, Sydney, Auckland, Dubai and Paris, and also ships ISN Empower, a worker-facing mobile app and learning management tool. The company is employee owned; Blackstone took a significant minority stake in December 2020 at a valuation above USD 2 billion. ISN runs a production REST API at api.isnetworld.com that lets subscribers pull their own ISNetworld data into internal systems, but the API is documented only to customers and there is no public developer portal, OpenAPI description, or SDK.
 
-ISN runs a production REST API at `https://api.isnetworld.com` that lets subscribers download
-their own ISNetworld data into internal systems. The API is real and live, but it is documented
-only to customers: there is no public developer portal, no OpenAPI description, no SDK, and the
-API's own help surface is authentication-gated. The word "API" does not appear anywhere on the
-public isnetworld.com site.
+**Areas:** Company · Contractor Management · Supplier Management · Health Safety and Environment · Risk Management · Compliance · Supply Chain · Sustainability · Workforce · Insurance · Training · Enterprise Software
 
-- https://www.isnetworld.com/en
-- https://www.isnetworld.com/en/trust-center
-- https://forgeglobal.com/isn_stock/
+## ISN on APIs.io
+
+Everything profiled for ISN is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/isn/](https://apis.io/providers/isn/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [ISNetworld API](https://apis.io/apis/isn/isnetworld-api/) — The ISNetworld API is a RESTful, bearer-token authenticated HTTP API that lets ISN subscribers download their own ISNetworld data — company profile…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [isn-mcp.yml](https://apis.io/servers/isn/isn-mcp-yml/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Isn Authentication](https://apis.io/security/isn/isn-authentication/)
+- [Isn Domain Security](https://apis.io/security/isn/isn-domain-security/)
+- [Isn Trust Center](https://apis.io/security/isn/isn-trust-center/)
+- [Isn Vulnerability Disclosure](https://apis.io/security/isn/isn-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Isn Plans Pricing](https://apis.io/plans/isn/isn-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Isn Rate Limits](https://apis.io/rate-limits/isn/isn-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.isnetworld.com/en)
+- [Documentation](https://help.isnetworld.com/)
+- [Sign up](https://www.isnetworld.com/en/signup)
+- [Support](https://www.isnetworld.com/en/contact)
+- [Blog](https://www.isnetworld.com/en/blog)
+- [Compliance](https://www.isnetworld.com/en/trust-center)
+- [Trust centre](https://www.isnetworld.com/en/trust-center)
+- [Terms of service](https://www.isnetworld.com/en/terms-conditions)
+- [Privacy policy](https://www.isnetworld.com/en/privacy)
+
+## API Evangelist rating
+
+**Kin Score 29.3** — thin · rubric 0.24.0 · scored 2026-10-20
+
+| Facet | Score |
+|---|---|
+| Discoverability | 67.9 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 50.0 |
+
+**Agent readiness 7.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 31.6** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/isn/](https://apis.io/providers/isn/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for ISN: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/isn/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
